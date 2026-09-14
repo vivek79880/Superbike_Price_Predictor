@@ -35,3 +35,9 @@ def emi_checker(emi_details: user_detail):
             "name": emi_details.Fullname,
             "decision": f"Sorry {emi_details.Fullname}, you are not eligible right now"
         }
+    
+
+
+    
+
+    

@@ -3,6 +3,16 @@ const API_URL = "http://127.0.0.1:8000/check-emi";
 const form = document.getElementById("applicant-form");
 const errorEl = document.getElementById("form-error");
 const submitBtn = form.querySelector("button[type='submit']");
+const bikeSelect = document.getElementById("bike-select");
+
+// When a bike is picked from the dropdown, open its official page in a new tab.
+bikeSelect.addEventListener("change", function () {
+  const selectedOption = bikeSelect.options[bikeSelect.selectedIndex];
+  const link = selectedOption.getAttribute("data-link");
+  if (link) {
+    window.open(link, "_blank", "noopener");
+  }
+});
 
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -12,10 +22,14 @@ form.addEventListener("submit", async function (e) {
   const address = document.getElementById("address").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const salary = document.getElementById("salary").value.trim();
-  const bikeCompany = document.getElementById("bike-company").value;
+
+  const selectedOption = bikeSelect.options[bikeSelect.selectedIndex];
+  const bikeValue = bikeSelect.value;
+  const bikeName = selectedOption ? selectedOption.textContent : "";
+  const bikeCompany = selectedOption ? selectedOption.getAttribute("data-company") : "";
 
   // basic validation
-  if (!name || !address || !phone || !salary || !bikeCompany) {
+  if (!name || !address || !phone || !salary || !bikeValue) {
     errorEl.textContent = "Please fill in all fields.";
     return;
   }
@@ -28,13 +42,14 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // this must match your FastAPI pydantic model field names exactly
+  // must match your FastAPI pydantic model field names exactly
   const payload = {
     Fullname: name,
     Address: address,
     Phonenumber: phone,
     MonthlySalary: Number(salary),
-    BikeCompany: bikeCompany
+    BikeCompany: bikeCompany,
+    BikeModel: bikeName
   };
 
   submitBtn.disabled = true;
@@ -60,10 +75,10 @@ form.addEventListener("submit", async function (e) {
       return;
     }
 
-    // eligible: save applicant info + decision, move to bike list
-    const applicant = { name, address, phone, salary, bikeCompany, decision: result.decision };
-    sessionStorage.setItem("applicant", JSON.stringify(applicant));
-    window.location.href = "bike_list.html";
+    errorEl.style.color = "#4b5d3a";
+    errorEl.textContent = result.decision || "You are eligible!";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Continue";
 
   } catch (err) {
     console.error(err);

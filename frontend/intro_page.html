@@ -34,11 +34,18 @@
       </div>
 
       <div>
-        <label for="bike-company">Bike company</label>
-        <select id="bike-company" name="bikeCompany" required>
-          <option value="" disabled selected>Select a company</option>
-          <option value="honda">Honda</option>
-          <option value="kawasaki">Kawasaki</option>
+        <label for="bike-select">Bike</label>
+        <select id="bike-select" name="bike" required>
+          <option value="" disabled selected>Select a bike</option>
+          <optgroup label="Kawasaki">
+            <option value="z900" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/z/Z900-2026.html">Kawasaki Z900</option>
+            <option value="zx10r" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-10r-2026.html">Kawasaki Ninja ZX-10R</option>
+            <option value="zx6r" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-6r-2026.html">Kawasaki Ninja ZX-6R</option>
+          </optgroup>
+          <optgroup label="Honda">
+            <option value="cbr650r" data-company="Honda" data-link="https://www.bikedekho.com/honda/cbr650r">Honda CBR650R</option>
+            <option value="cb650r" data-company="Honda" data-link="https://www.bikedekho.com/honda/cb650r">Honda CB650R</option>
+          </optgroup>
         </select>
       </div>
 

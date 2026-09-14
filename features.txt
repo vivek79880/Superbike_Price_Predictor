@@ -1,0 +1,2 @@
+1.add database in this so that user can add some of the details in the input field and it can be stored in the database as well
+2.
