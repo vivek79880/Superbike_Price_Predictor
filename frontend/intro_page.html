@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMI Calculator — Applicant Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">EMI Calculator</div>
+    <h1>Tell us about yourself</h1>
+    <p class="sub">Fill in your details and pick a bike company to see the models available for an EMI plan.</p>
+
+    <form id="applicant-form" novalidate>
+      <div>
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+      </div>
+
+      <div>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" required />
+      </div>
+
+      <div>
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required />
+      </div>
+
+      <div>
+        <label for="salary">Monthly salary (₹)</label>
+        <input type="number" id="salary" name="salary" placeholder="Enter your monthly salary" min="0" required />
+      </div>
+
+      <div>
+        <label for="bike-company">Bike company</label>
+        <select id="bike-company" name="bikeCompany" required>
+          <option value="" disabled selected>Select a company</option>
+          <option value="honda">Honda</option>
+          <option value="kawasaki">Kawasaki</option>
+        </select>
+      </div>
+
+      <div class="error" id="form-error"></div>
+
+      <div class="actions">
+        <button type="submit">Continue</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="intro_page.js"></script>
+</body>
+</html>
