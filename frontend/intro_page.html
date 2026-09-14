@@ -1,62 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EMI Calculator — Applicant Details</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike EMI Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="brand">EMI Calculator</div>
-    <h1>Tell us about yourself</h1>
-    <p class="sub">Fill in your details and pick a bike company to see the models available for an EMI plan.</p>
 
-    <form id="applicant-form" novalidate>
-      <div>
-        <label for="name">Full name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
-      </div>
+    <div class="container">
 
-      <div>
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder="Enter your address" required />
-      </div>
+        <h1>Bike EMI Calculator</h1>
 
-      <div>
-        <label for="phone">Phone number</label>
-        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required />
-      </div>
+        <form id="applicant-form">
 
-      <div>
-        <label for="salary">Monthly salary (₹)</label>
-        <input type="number" id="salary" name="salary" placeholder="Enter your monthly salary" min="0" required />
-      </div>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
 
-      <div>
-        <label for="bike-select">Bike</label>
-        <select id="bike-select" name="bike" required>
-          <option value="" disabled selected>Select a bike</option>
-          <optgroup label="Kawasaki">
-            <option value="z900" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/z/Z900-2026.html">Kawasaki Z900</option>
-            <option value="zx10r" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-10r-2026.html">Kawasaki Ninja ZX-10R</option>
-            <option value="zx6r" data-company="Kawasaki" data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-6r-2026.html">Kawasaki Ninja ZX-6R</option>
-          </optgroup>
-          <optgroup label="Honda">
-            <option value="cbr650r" data-company="Honda" data-link="https://www.bikedekho.com/honda/cbr650r">Honda CBR650R</option>
-            <option value="cb650r" data-company="Honda" data-link="https://www.bikedekho.com/honda/cb650r">Honda CB650R</option>
-          </optgroup>
-        </select>
-      </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    placeholder="Enter your address"
+                    required
+                >
+            </div>
 
-      <div class="error" id="form-error"></div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter 10-digit phone number"
+                    maxlength="10"
+                    required
+                >
+            </div>
 
-      <div class="actions">
-        <button type="submit">Continue</button>
-      </div>
-    </form>
-  </div>
+            <div class="form-group">
+                <label for="salary">Monthly Salary</label>
+                <input
+                    type="number"
+                    id="salary"
+                    name="salary"
+                    placeholder="Enter your monthly salary"
+                    min="1"
+                    required
+                >
+            </div>
 
-  <script src="intro_page.js"></script>
+            <div class="form-group">
+                <label for="bike-select">Select Bike</label>
+
+                <select id="bike-select" name="bike" required>
+
+                    <option value="" disabled selected>
+                        Select your bike
+                    </option>
+
+                    <option
+                        value="z900"
+                        data-company="Kawasaki"
+                        data-link="https://www.kawasaki-india.com/en/motorcycles/z/Z900-2026.html"
+                    >
+                        Kawasaki Z900
+                    </option>
+
+                    <option
+                        value="zx10r"
+                        data-company="Kawasaki"
+                        data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-10r-2026.html"
+                    >
+                        Kawasaki Ninja ZX-10R
+                    </option>
+
+                    <option
+                        value="zx6r"
+                        data-company="Kawasaki"
+                        data-link="https://www.kawasaki-india.com/en/motorcycles/ninja/ninja-zx-6r-2026.html"
+                    >
+                        Kawasaki Ninja ZX-6R
+                    </option>
+
+                    <option
+                        value="cbr650r"
+                        data-company="Honda"
+                        data-link="https://www.bikewale.com/honda-bikes/cbr650r/"
+                    >
+                        Honda CBR650R
+                    </option>
+
+                    <option
+                        value="cb650r"
+                        data-company="Honda"
+                        data-link="https://www.bikewale.com/honda-bikes/cb650r/"
+                    >
+                        Honda CB650R
+                    </option>
+
+                </select>
+            </div>
+
+            <p id="form-error"></p>
+
+            <button type="submit">
+                Continue
+            </button>
+
+        </form>
+
+    </div>
+
+    <script src="bikes_data.js"></script>
+    <script src="intro_page.js"></script>
+
 </body>
 </html>
+

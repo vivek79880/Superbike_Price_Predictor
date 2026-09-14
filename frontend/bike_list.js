@@ -1,15 +1,18 @@
+javascript
 const raw = sessionStorage.getItem("applicant");
 
 if (!raw) {
-  // No applicant data found, send them back to fill the form first.
   window.location.href = "intro_page.html";
 } else {
   const applicant = JSON.parse(raw);
-  const companyLabel = applicant.bikeCompany === "honda" ? "Honda" : "Kawasaki";
+
+  const companyLabel =
+    applicant.bikeCompany === "honda" ? "Honda" : "Kawasaki";
 
   document.getElementById("page-title").textContent = `${companyLabel} bikes`;
+
   document.getElementById("page-sub").textContent =
-    `Here are the ${companyLabel} models available for an EMI plan.`;
+    `Select a ${companyLabel} bike to calculate your EMI.`;
 
   document.getElementById("applicant-strip").innerHTML = `
     <span>${applicant.name}</span> &middot;
@@ -23,13 +26,55 @@ if (!raw) {
   bikes.forEach((bike) => {
     const row = document.createElement("div");
     row.className = "bike-row";
+
     row.innerHTML = `
       <div>
         <div class="bike-name">${bike.name}</div>
-        <div class="bike-company">${companyLabel}</div>
+        <div class="bike-company">
+          ₹${bike.price.toLocaleString("en-IN")}
+        </div>
       </div>
-      <a class="bike-link" href="${bike.link}" target="_blank" rel="noopener">View details &rarr;</a>
+
+      <div class="bike-actions">
+        <a
+          class="bike-link"
+          href="${bike.link}"
+          target="_blank"
+          rel="noopener"
+        >
+          View details →
+        </a>
+
+        <button
+          class="select-bike-btn"
+          data-bike-id="${bike.id}"
+        >
+          Calculate EMI →
+        </button>
+      </div>
     `;
+
     listEl.appendChild(row);
+  });
+
+  document.querySelectorAll(".select-bike-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const bikeId = button.dataset.bikeId;
+
+      const selectedBike = bikes.find(
+        (bike) => bike.id === bikeId
+      );
+
+      if (!selectedBike) {
+        return;
+      }
+
+      sessionStorage.setItem(
+        "selectedBike",
+        JSON.stringify(selectedBike)
+      );
+
+      window.location.href = "emi_calculator.html";
+    });
   });
 }
