@@ -1,5 +1,5 @@
 
-const API_URL = "http://127.0.0.1:8000/check-emi";
+const API_URL = "https://superbike-price-predictor-3.onrender.com/check-emi";
 
 const form = document.getElementById("applicant-form");
 const errorEl = document.getElementById("form-error");
