@@ -2,8 +2,22 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from fastapi.middleware.cors import CORSMiddleware
+from google import genai
 
 app = FastAPI()
+
+client = genai.Client()
+
+
+class user_detail(BaseModel):
+    Fullname: str
+    Address: str
+    Phonenumber: str
+    MonthlySalary: int
+    BikeCompany: str
+    BikeModel: str
+
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,50 +27,32 @@ app.add_middleware(
 )
 
 
-
-class user_detail(BaseModel):
-    Fullname:str
-    Address:str
-    Phonenumber:str
-    MonthlySalary:int
-    BikeCompany: str
-
-
-# @app.post("/check-emi")
-# def emi_checker(emi_details: user_detail):
-#     if emi_details.MonthlySalary >= 100000:
-#         return {
-
-#             "name": emi_details.Fullname,
-#             "decision": f"congratulations!!! {emi_details.Fullname}, you can comfortably afford this bike"
-#         }
-#     else:
-#         return{
-#             "name": emi_details.Fullname,
-#             "decision": f"Sorry {emi_details.Fullname}, you are not eligible right now"
-#         }
-    
-
-
-
 @app.post("/check-emi")
 def emi_checker(emi_details: user_detail):
+    eligible = emi_details.MonthlySalary >= 100000
 
-    if emi_details.MonthlySalary >= 100000:
+    # Ask Gemini to write a natural explanation, based on the decision we already made
+    prompt = f"""
+    A customer named {emi_details.Fullname} applied for an EMI (loan) to buy a {emi_details.BikeModel}.
+    Their monthly salary is {emi_details.MonthlySalary} rupees.
+    The eligibility decision is: {"APPROVED" if eligible else "NOT APPROVED"}.
+    Write a short, warm, 2-3 sentence message to the customer explaining this decision.
+    Do not mention exact eligibility rules or numbers, just be natural and polite.
+    """
 
-        return {
-            "name": emi_details.Fullname,
-            "eligible": True,
-            "decision": f"Congratulations {emi_details.Fullname}, you can comfortably afford this bike"
-        }
+    response = client.models.generate_content(
+    model="gemini-3.6-flash",
+    contents=prompt
+)
 
-    else:
+    return {
+        "eligible": eligible,
+        "name": emi_details.Fullname,
+        "decision": response.text
+    }
 
-        return {
-            "name": emi_details.Fullname,
-            "eligible": False,
-            "decision": f"Sorry {emi_details.Fullname}, you are not eligible right now"
-        }
-    
+
+
+
 
     
