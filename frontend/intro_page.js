@@ -1,5 +1,5 @@
 
-const API_URL = "https://superbike-price-predictor-3.onrender.com/check-emi";
+const API_URL = "http://127.0.0.1:8000/check-emi";
 
 const form = document.getElementById("applicant-form");
 const errorEl = document.getElementById("form-error");
@@ -35,7 +35,7 @@ form.addEventListener("submit", async function (event) {
     console.log("CONTINUE BUTTON CLICKED");
 
     errorEl.textContent = "";
-    errorEl.style.color = "#c62828";
+    errorEl.style.color = "#8b0bedff";
 
 
     // Get values
@@ -81,12 +81,13 @@ form.addEventListener("submit", async function (event) {
     // ===============================
 
     const payload = {
-        Fullname: name,
-        Address: address,
-        Phonenumber: phone,
-        MonthlySalary: salary,
-        BikeCompany: bikeCompany
-    };
+    Fullname: name,
+    Address: address,
+    Phonenumber: phone,
+    MonthlySalary: salary,
+    BikeCompany: bikeCompany,
+    BikeModel: bikeName
+};
 
 
     console.log("Sending:", payload);

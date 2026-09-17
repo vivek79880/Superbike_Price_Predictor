@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
+backend/improvements.txt
+echo 'export GEMINI_API_KEY=""' >> ~/.zshrc
